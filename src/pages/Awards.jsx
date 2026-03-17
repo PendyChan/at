@@ -1,20 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-const awardItems = [
-  { key: 'item1', icon: '🏆', year: '2025' },
-  { key: 'item2', icon: '🥇', year: '2025' },
-  { key: 'item3', icon: '🌟', year: '2025' },
-  { key: 'item4', icon: '📣', year: '2025' },
-  { key: 'item5', icon: '🎖️', year: '2025' },
-]
-
-const photos = [
-  { src: '/images/agile1.jpg', alt: 'Agile Award 1' },
-  { src: '/images/agile2.jpg', alt: 'Agile Award 2' },
-  { src: '/images/agile3.jpg', alt: 'Agile Award 3' },
-  { src: '/images/reward1.jpg', alt: 'Award Ceremony 1' },
-  { src: '/images/reward2.jpg', alt: 'Award Ceremony 2' },
+const agileItems = [
+  { key: 'item1', photo: '/images/agileOrg.jpg' },
+  { key: 'item2', photo: '/images/agileTeam.jpg' },
+  { key: 'item3', photo: '/images/agileLeader.jpg' },
+  { key: 'item4', photo: '/images/agileMissionary.jpg' },
 ]
 
 export default function Awards() {
@@ -43,28 +34,52 @@ export default function Awards() {
         </div>
       </div>
 
-      {/* Award Cards */}
+      {/* Section 1 — 台灣敏捷大賞 */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-4">
-            <span className="inline-block bg-brand-blue-pale text-brand-blue text-sm font-semibold px-4 py-1 rounded-full">
-              {t('awards.year')}
-            </span>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="flex items-center gap-4 mb-12">
+            <div className="flex-1 h-px bg-gray-200" />
+            <div className="text-center">
+              <span className="text-xs font-semibold text-brand-blue uppercase tracking-widest">
+                {t('awards.agile_year')}
+              </span>
+              <h2 className="text-2xl font-extrabold text-gray-900 mt-0.5">
+                {t('awards.agile_section')}
+              </h2>
+            </div>
+            <div className="flex-1 h-px bg-gray-200" />
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-            {awardItems.map((a) => (
+          {/* Award Cards with Photos */}
+          <div className="grid sm:grid-cols-2 gap-6">
+            {agileItems.map((a, i) => (
               <div
                 key={a.key}
-                className="group relative bg-white border border-gray-100 rounded-2xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                className="group rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300"
               >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-brand-blue-pale rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity" />
-                <div className="relative z-10">
-                  <div className="text-5xl mb-4">{a.icon}</div>
-                  <div className="text-xs text-brand-blue font-semibold mb-2">{a.year} ★</div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {t(`awards.${a.key}_title`)}
-                  </h3>
+                {/* Photo */}
+                <div
+                  className="relative h-52 overflow-hidden cursor-zoom-in"
+                  onClick={() => setLightbox({ src: a.photo, label: t(`awards.${a.key}_title`) })}
+                >
+                  <img
+                    src={a.photo}
+                    alt={t(`awards.${a.key}_title`)}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                    <span className="w-7 h-7 rounded-full bg-brand-blue flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-white text-sm font-semibold drop-shadow">
+                      {t(`awards.${a.key}_title`)}
+                    </span>
+                  </div>
+                </div>
+                {/* Desc */}
+                <div className="p-5 bg-white">
                   <p className="text-sm text-gray-500 leading-relaxed">
                     {t(`awards.${a.key}_desc`)}
                   </p>
@@ -75,48 +90,83 @@ export default function Awards() {
         </div>
       </section>
 
-      {/* Photo Gallery */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-10">Gallery</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {photos.map((p) => (
-              <div
-                key={p.src}
-                className="group relative rounded-xl overflow-hidden aspect-square shadow-sm hover:shadow-md transition-shadow cursor-zoom-in"
-                onClick={() => setLightbox(p)}
-              >
-                <img src={p.src} alt={p.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                <div className="absolute inset-0 bg-brand-blue/0 group-hover:bg-brand-blue/20 transition-colors" />
-              </div>
-            ))}
+      {/* Section 2 — 對話影響力 */}
+      <section className="py-20 bg-blue-50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="flex items-center gap-4 mb-12">
+            <div className="flex-1 h-px bg-blue-200" />
+            <div className="text-center">
+              <span className="text-xs font-semibold text-blue-600 uppercase tracking-widest">
+                {t('awards.dialogue_year')}
+              </span>
+              <h2 className="text-2xl font-extrabold text-gray-900 mt-0.5">
+                {t('awards.dialogue_section')}
+              </h2>
+            </div>
+            <div className="flex-1 h-px bg-blue-200" />
           </div>
 
-          {/* Lightbox */}
-          {lightbox && (
+          {/* Single Gold Award with Photo */}
+          <div className="max-w-lg mx-auto rounded-2xl overflow-hidden border border-blue-200 shadow-lg">
+            {/* Gold top bar */}
+            <div className="h-1.5 w-full bg-gradient-to-r from-blue-400 via-blue-300 to-blue-400" />
+            {/* Photo */}
             <div
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
-              onClick={() => setLightbox(null)}
+              className="relative h-64 overflow-hidden cursor-zoom-in"
+              onClick={() => setLightbox({ src: '/images/dialogue.jpg', label: t('awards.item5_title') })}
             >
-              <button
-                className="absolute top-4 right-4 text-white bg-white/10 hover:bg-white/20 rounded-full w-10 h-10 flex items-center justify-center text-xl transition-colors"
-                onClick={() => setLightbox(null)}
-              >
-                ✕
-              </button>
               <img
-                src={lightbox.src}
-                alt={lightbox.alt}
-                className="max-w-[90vw] max-h-[85vh] rounded-2xl shadow-2xl object-contain"
-                onClick={(e) => e.stopPropagation()}
+                src="/images/dialogue.jpg"
+                alt={t('awards.item5_title')}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
-              <p className="absolute bottom-6 text-white text-sm font-medium bg-black/40 px-4 py-1.5 rounded-full">
-                {lightbox.alt}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </div>
+            {/* Content */}
+            <div className="bg-white p-8 text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-50 border-2 border-blue-300 mb-4">
+                <svg className="w-6 h-6 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </div>
+              <div className="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">
+                {t('awards.dialogue_year')}
+              </div>
+              <h3 className="text-2xl font-extrabold text-gray-900 mb-3">
+                {t('awards.item5_title')}
+              </h3>
+              <p className="text-sm text-gray-500 leading-relaxed">
+                {t('awards.item5_desc')}
               </p>
             </div>
-          )}
+          </div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white bg-white/10 hover:bg-white/20 rounded-full w-10 h-10 flex items-center justify-center text-xl transition-colors"
+            onClick={() => setLightbox(null)}
+          >
+            ✕
+          </button>
+          <img
+            src={lightbox.src}
+            alt={lightbox.label}
+            className="max-w-[90vw] max-h-[85vh] rounded-2xl shadow-2xl object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <p className="absolute bottom-6 text-white text-sm font-medium bg-black/40 px-4 py-1.5 rounded-full">
+            {lightbox.label}
+          </p>
+        </div>
+      )}
 
       {/* Banner */}
       <section className="py-20 bg-brand-blue">

@@ -1,0 +1,167 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <title>華麗版 AscentisTech Loading</title>
+  
+  <style>
+    /* 定義旋轉動畫 */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 定義虛線偏移動畫，產生圓環「畫出來」的效果 */
+    @keyframes dash {
+      0% {
+        stroke-dashoffset: 753; /* 約等於圓周長 2 * pi * radius (2*3.14159*120=753.9) */
+      }
+      50% {
+        stroke-dashoffset: 188;  /* 偏移 1/4 */
+      }
+      100% {
+        stroke-dashoffset: 753; /* 恢復初始偏移量 */
+      }
+    }
+    
+    /* 定義 Loading 文字淡入淡出動畫 */
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    
+    /* 定義 AscentisTech 文字字母亮起動畫 */
+    @keyframes letterShow {
+      0%, 20% { opacity: 0.1; }
+      21%, 100% { opacity: 1; }
+    }
+
+    /* 將動畫應用於動態圓環 (使用多層次旋轉) */
+    .spinner {
+      transform-origin: center;
+      animation: spin 3s linear infinite; /* 最外層慢速旋轉 */
+    }
+    
+    .spinner-path-1 {
+      stroke-dasharray: 753;
+      stroke-dashoffset: 753;
+      animation: dash 3s ease-in-out infinite;
+    }
+    
+    /* 中層圓環，反向、中速旋轉 */
+    .spinner-inner {
+      transform-origin: center;
+      animation: spin 2s linear infinite reverse; /* 反向旋轉 */
+    }
+    .spinner-path-inner {
+       stroke-dasharray: 628; /* 周長約為 2*3.14*100 = 628 */
+       stroke-dashoffset: 628;
+       animation: dash 2s ease-in-out infinite;
+    }
+    
+    /* 最內層圓環，快速旋轉 */
+    .spinner-inner-most {
+      transform-origin: center;
+      animation: spin 1s linear infinite; /* 最內層慢速旋轉 */
+    }
+    .spinner-path-inner-most {
+       stroke-dasharray: 502; /* 周長約為 2*3.14*80 = 502 */
+       stroke-dashoffset: 502;
+       animation: dash 1s ease-in-out infinite;
+    }
+
+    /* 文字樣式 */
+    .loading-text {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 32px;
+      font-weight: bold;
+      fill: #073290;
+      text-anchor: middle; /* 文字置中 */
+      animation: fadeInOut 2s ease-in-out infinite;
+    }
+    
+    .brand-text {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      fill: #073290;
+      text-anchor: middle;
+      opacity: 0.8;
+    }
+    
+    /* 這裡需要個別為 AscentisTech 的每個字母定義動畫延遲，產生漸次亮起效果 */
+    .ascentis-tech-char {
+      animation: letterShow 2s ease-in-out infinite;
+    }
+    
+    /* 產生的 CSS 選取器 */
+    
+    .char-a {
+      animation-delay: 0.00s;
+    }
+    .char-s {
+      animation-delay: 0.08s;
+    }
+    .char-c {
+      animation-delay: 0.16s;
+    }
+    .char-e {
+      animation-delay: 0.24s;
+    }
+    .char-n {
+      animation-delay: 0.32s;
+    }
+    .char-t {
+      animation-delay: 0.40s;
+    }
+    .char-i {
+      animation-delay: 0.48s;
+    }
+    .char-s {
+      animation-delay: 0.56s;
+    }
+    .char-t2 {
+      animation-delay: 0.64s;
+    }
+    .char-e2 {
+      animation-delay: 0.72s;
+    }
+    .char-c2 {
+      animation-delay: 0.80s;
+    }
+    .char-h {
+      animation-delay: 0.88s;
+    }
+
+  </style>
+
+  <circle cx="150.0" cy="150.0" r="120" fill="none" stroke="#f0f0f0" stroke-width="8" />
+  <circle cx="150.0" cy="150.0" r="100" fill="none" stroke="#f0f0f0" stroke-width="6" />
+  <circle cx="150.0" cy="150.0" r="80" fill="none" stroke="#f0f0f0" stroke-width="4" />
+
+  <g class="spinner">
+    <circle class="spinner-path-1" cx="150.0" cy="150.0" r="120" fill="none" stroke="#073290" stroke-width="8" stroke-linecap="round" />
+  </g>
+  <g class="spinner-inner">
+    <circle class="spinner-path-inner" cx="150.0" cy="150.0" r="100" fill="none" stroke="#073290" stroke-width="6" stroke-linecap="round" />
+  </g>
+  <g class="spinner-inner-most">
+    <circle class="spinner-path-inner-most" cx="150.0" cy="150.0" r="80" fill="none" stroke="#073290" stroke-width="4" stroke-linecap="round" />
+  </g>
+  
+  <g transform="translate(150.0, 140.0)">
+      <text class="loading-text">Loading...</text>
+  </g>
+  
+  <g transform="translate(150.0, 175.0)">
+      <text class="brand-text">
+        <tspan class="ascentis-tech-char char-a">A</tspan>
+        <tspan class="ascentis-tech-char char-s">s</tspan>
+        <tspan class="ascentis-tech-char char-c">c</tspan>
+        <tspan class="ascentis-tech-char char-e">e</tspan>
+        <tspan class="ascentis-tech-char char-n">n</tspan>
+        <tspan class="ascentis-tech-char char-t">t</tspan>
+        <tspan class="ascentis-tech-char char-i">i</tspan>
+        <tspan class="ascentis-tech-char char-s">s</tspan>
+        <tspan class="ascentis-tech-char char-t2">T</tspan>
+        <tspan class="ascentis-tech-char char-e2">e</tspan>
+        <tspan class="ascentis-tech-char char-c2">c</tspan>
+        <tspan class="ascentis-tech-char char-h">h</tspan>
+      </text>
+  </g>
+</svg>

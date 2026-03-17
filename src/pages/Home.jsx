@@ -5,10 +5,10 @@ export default function Home() {
   const { t } = useTranslation()
 
   const services = [
-    { icon: '⚙️', key: 'card1' },
-    { icon: '📊', key: 'card2' },
-    { icon: '🤖', key: 'card3' },
-    { icon: '🌐', key: 'card4' },
+    { key: 'card1' },
+    { key: 'card2' },
+    { key: 'card3' },
+    { key: 'card4' },
   ]
 
   const awards = [
@@ -140,7 +140,6 @@ export default function Home() {
                 key={s.key}
                 className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 border border-gray-100"
               >
-                <div className="text-3xl mb-3">{s.icon}</div>
                 <h3 className="font-bold text-gray-900 text-base mb-2">
                   {t(`services.${s.key}_title`)}
                 </h3>
@@ -204,7 +203,7 @@ export default function Home() {
               <img src="/images/office1.jpg" alt="Office" className="rounded-xl object-cover h-40 w-full" />
               <img src="/images/snack.jpg" alt="Snack" className="rounded-xl object-cover h-40 w-full" />
               <img src="/images/massage.jpg" alt="Massage" className="rounded-xl object-cover h-40 w-full" />
-              <img src="/images/yearly-party.jpg" alt="Party" className="rounded-xl object-cover h-40 w-full" />
+              <img src="/images/yearlyParty.jpg" alt="Party" className="rounded-xl object-cover h-40 w-full" />
             </div>
             <div>
               <p className="text-brand-blue font-semibold text-sm uppercase tracking-widest mb-2">

@@ -1,51 +1,95 @@
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+
+const missionImages = [
+  '/images/meeting2.jpg',
+  '/images/office2.jpg',
+  '/images/member1.jpg',
+  '/images/member2.jpg',
+]
 
 export default function About() {
   const { t } = useTranslation()
+  const [lightbox, setLightbox] = useState(null)
+
+  useEffect(() => {
+    if (!lightbox) return
+    const onKey = (e) => { if (e.key === 'Escape') setLightbox(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lightbox])
 
   const cards = [
-    { key: 'card1', icon: '👥', color: 'bg-blue-50 border-blue-200' },
-    { key: 'card2', icon: '🔄', color: 'bg-indigo-50 border-indigo-200' },
-    { key: 'card3', icon: '⭐', color: 'bg-sky-50 border-sky-200' },
+    {
+      key: 'card1',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+        </svg>
+      ),
+    },
+    {
+      key: 'card2',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <polyline points="23 4 23 10 17 10" />
+          <polyline points="1 20 1 14 7 14" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+        </svg>
+      ),
+    },
+    {
+      key: 'card3',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      ),
+    },
   ]
 
   return (
     <div className="pt-16">
       {/* Hero Banner */}
-      <div className="relative h-64 sm:h-80 overflow-hidden">
-        <img src="/images/meeting.jpg" alt="About" className="w-full h-full object-cover object-top" />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/85 to-brand-blue/50" />
-        <div className="absolute inset-0 flex items-center">
+      <div className="relative h-72 sm:h-96 overflow-hidden">
+        <img
+          src="/images/group.jpg"
+          alt="About"
+          className="w-full h-full object-cover"
+          style={{ objectPosition: 'center 25%' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/90 to-brand-blue/40" />
+        <div className="absolute inset-0 flex items-end pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <p className="text-blue-300 font-semibold text-sm uppercase tracking-widest mb-2">About</p>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-white">{t('about.title')}</h1>
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-white leading-tight">
+              {t('about.title')}
+            </h1>
           </div>
         </div>
       </div>
 
-      {/* Subtitle */}
-      <section className="py-16 bg-white">
+      {/* Subtitle + Cards */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-center text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-16">
             {t('about.subtitle')}
           </p>
-        </div>
-      </section>
-
-      {/* Three Cards */}
-      <section className="py-8 pb-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-3 gap-8">
             {cards.map((c) => (
               <div
                 key={c.key}
-                className={`rounded-2xl border p-6 ${c.color} hover:shadow-lg transition-shadow`}
+                className="group bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="text-4xl mb-4">{c.icon}</div>
+                <div className="w-12 h-12 rounded-xl bg-brand-blue flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300">
+                  {c.icon}
+                </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">
                   {t(`about.${c.key}_title`)}
                 </h3>
-                <p className="text-gray-600 leading-relaxed text-sm">{t(`about.${c.key}_desc`)}</p>
+                <p className="text-gray-500 leading-relaxed text-sm">{t(`about.${c.key}_desc`)}</p>
               </div>
             ))}
           </div>
@@ -66,10 +110,15 @@ export default function About() {
               <p className="text-blue-100 leading-relaxed text-lg">{t('about.mission_desc')}</p>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <img src="/images/meeting2.jpg" alt="" className="rounded-xl object-cover h-48 w-full" />
-              <img src="/images/office2.jpg" alt="" className="rounded-xl object-cover h-48 w-full" />
-              <img src="/images/member1.jpg" alt="" className="rounded-xl object-cover h-48 w-full" />
-              <img src="/images/member2.jpg" alt="" className="rounded-xl object-cover h-48 w-full" />
+              {missionImages.map((src) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt=""
+                  className="rounded-xl object-cover h-48 w-full cursor-zoom-in hover:opacity-90 transition-opacity"
+                  onClick={() => setLightbox(src)}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -80,10 +129,31 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-8">AscentisTech Team</h2>
           <div className="rounded-2xl overflow-hidden shadow-xl">
-            <img src="/images/party1.jpg" alt="Team" className="w-full object-cover max-h-100" />
+            <img src="/images/bbq.jpg" alt="Team" className="w-full object-cover max-h-100" />
           </div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+          onClick={() => setLightbox(null)}
+        >
+          <img
+            src={lightbox}
+            alt=""
+            className="max-w-[90vw] max-h-[90vh] rounded-2xl shadow-2xl object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            className="absolute top-4 right-4 text-white text-3xl font-bold leading-none hover:text-gray-300"
+            onClick={() => setLightbox(null)}
+          >
+            ×
+          </button>
+        </div>
+      )}
     </div>
   )
 }
