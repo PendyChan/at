@@ -7,6 +7,7 @@ import About from './pages/About'
 import Services from './pages/Services'
 import Awards from './pages/Awards'
 import Benefits from './pages/Benefits'
+import Careers from './pages/Careers'
 import Contact from './pages/Contact'
 
 function ScrollToTop() {
@@ -61,6 +62,7 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/awards" element={<Awards />} />
             <Route path="/benefits" element={<Benefits />} />
+            <Route path="/careers" element={<Careers />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>

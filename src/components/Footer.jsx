@@ -9,6 +9,7 @@ export default function Footer() {
     { to: '/services', label: t('nav.services') },
     { to: '/awards', label: t('nav.awards') },
     { to: '/benefits', label: t('nav.benefits') },
+    { to: '/careers', label: t('nav.careers') },
     { to: '/contact', label: t('nav.contact') },
   ]
 

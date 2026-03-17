@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const categories = [
-  { key: 'cat1', items: ['i1', 'i2'] },
-  { key: 'cat2', items: ['i1', 'i2', 'i3', 'i4'] },
+  { key: 'cat1', items: ['i1', 'i2', 'i3'] },
+  { key: 'cat2', items: ['i1', 'i2', 'i3', 'i4', 'i5'] },
   { key: 'cat3', items: ['i1', 'i2', 'i3', 'i4'] },
-  { key: 'cat4', items: ['i1', 'i2', 'i3'] },
+  { key: 'cat4', items: ['i1', 'i2', 'i3', 'i4'] },
   { key: 'cat5', items: ['i1', 'i2', 'i3'] },
   { key: 'cat6', items: ['i1', 'i2', 'i3'] },
+  { key: 'cat7', items: ['i1', 'i2', 'i3', 'i4'] },
 ]
 
 // Circles scattered across the full page: pos is CSS position props
@@ -91,12 +92,35 @@ export default function Benefits() {
 
       {/* Benefits Grid */}
       <section className="relative z-10 py-20" style={{ pointerEvents: 'none' }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map((cat) => (
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          {/* First row: 4 cards */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {categories.slice(0, 4).map((cat) => (
               <div
                 key={cat.key}
                 className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-lg transition-shadow"
+                style={{ pointerEvents: 'auto' }}
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  {t(`benefits.${cat.key}_title`)}
+                </h3>
+                <ul className="space-y-2">
+                  {cat.items.map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm text-gray-600">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-blue flex-shrink-0" />
+                      {t(`benefits.${cat.key}_${item}`)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          {/* Second row: 3 cards centered */}
+          <div className="flex flex-wrap justify-center gap-6">
+            {categories.slice(4).map((cat) => (
+              <div
+                key={cat.key}
+                className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-lg transition-shadow w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
                 style={{ pointerEvents: 'auto' }}
               >
                 <h3 className="text-xl font-bold text-gray-900 mb-4">
