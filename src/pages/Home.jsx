@@ -12,11 +12,42 @@ export default function Home() {
   ]
 
   const awards = [
-    { key: 'item1', icon: '🏆' },
-    { key: 'item2', icon: '🥇' },
-    { key: 'item3', icon: '🌟' },
-    { key: 'item4', icon: '📣' },
-    { key: 'item5', icon: '🎖️' },
+    { key: 'item1' },
+    { key: 'item2' },
+    { key: 'item3' },
+    { key: 'item4' },
+    { key: 'item5' },
+  ]
+
+  const aboutCards = [
+    {
+      key: 'card1',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+        </svg>
+      ),
+    },
+    {
+      key: 'card2',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <polyline points="23 4 23 10 17 10" />
+          <polyline points="1 20 1 14 7 14" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+        </svg>
+      ),
+    },
+    {
+      key: 'card3',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      ),
+    },
   ]
 
   return (
@@ -101,19 +132,17 @@ export default function Home() {
                 {t('nav.about')} <span>→</span>
               </Link>
             </div>
-            <div className="grid grid-cols-3 gap-4">
-              {[
-                { title: t('about.card1_title'), desc: t('about.card1_desc'), icon: '👥' },
-                { title: t('about.card2_title'), desc: t('about.card2_desc'), icon: '🔄' },
-                { title: t('about.card3_title'), desc: t('about.card3_desc'), icon: '⭐' },
-              ].map((c) => (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {aboutCards.map((c) => (
                 <div
-                  key={c.title}
-                  className="bg-brand-blue-pale rounded-xl p-4 text-center hover:shadow-md transition-shadow"
+                  key={c.key}
+                  className="group bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
-                  <div className="text-3xl mb-2">{c.icon}</div>
-                  <h3 className="text-sm font-bold text-brand-blue mb-1">{c.title}</h3>
-                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">{c.desc}</p>
+                  <div className="w-12 h-12 rounded-xl bg-brand-blue flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300">
+                    {c.icon}
+                  </div>
+                  <h3 className="text-sm font-bold text-gray-900 mb-2">{t(`about.${c.key}_title`)}</h3>
+                  <p className="text-xs text-gray-500 leading-relaxed">{t(`about.${c.key}_desc`)}</p>
                 </div>
               ))}
             </div>
@@ -176,9 +205,8 @@ export default function Home() {
             {awards.map((a) => (
               <div
                 key={a.key}
-                className="flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2"
               >
-                <span>{a.icon}</span>
                 <span className="text-white text-sm font-medium">{t(`awards.${a.key}_title`)}</span>
               </div>
             ))}
