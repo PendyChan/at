@@ -58,7 +58,7 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url('/images/group.jpg')" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/90 via-brand-blue/75 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/90 via-brand-blue/50 to-transparent" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-2xl">
