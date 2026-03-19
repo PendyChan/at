@@ -15,13 +15,13 @@ const categories = [
 const floatingCircles = [
   { src: '/images/office1.jpg',  size: 180, dur: 4.0, delay: 0.0, pos: { top: '35%',  left: '25%' } },
   { src: '/images/snack.jpg',    size: 189, dur: 5.1, delay: 0.7, pos: { top: '65%',  right: '12%' } },
-  { src: '/images/office2.jpg',  size: 221, dur: 4.4, delay: 1.3, pos: { top: '30%', right: '5%' } },
+  { src: '/images/yearlyParty2.jpg',  size: 221, dur: 4.4, delay: 1.3, pos: { top: '30%', right: '3%' } },
   { src: '/images/massage.jpg',    size: 169, dur: 3.8, delay: 0.4, pos: { top: '45%', left: '5%' } },
   { src: '/images/bbq.jpg',    size: 241, dur: 4.9, delay: 1.0, pos: { top: '55%', left: '15%' } },
   { src: '/images/office3.jpg',  size: 202, dur: 4.3, delay: 0.2, pos: { top: '38%', right: '20%' } },
   { src: '/images/yearlyParty.jpg',     size: 215, dur: 5.3, delay: 1.6, pos: { top: '75%', right: '25%' } },
-  { src: '/images/office4.jpg',  size: 176, dur: 3.9, delay: 0.8, pos: { top: '76%', left: '4%' } },
-  { src: '/images/office5.jpg',  size: 195, dur: 4.7, delay: 1.4, pos: { top: '80%', left: '40%' } },
+  { src: '/images/thanksgiving.jpg',  size: 176, dur: 3.9, delay: 0.8, pos: { top: '76%', left: '4%' } },
+  { src: '/images/bbq2.jpg',  size: 195, dur: 4.7, delay: 1.4, pos: { top: '80%', left: '40%' } },
   { src: '/images/party2.jpg',  size: 200, dur: 4.8, delay: 1.4, pos: { top: '30%', left: '50%' } },
   { src: '/images/member1.jpg',  size: 170, dur: 4.0, delay: 0.0, pos: { top: '80%', right: '3%' } },
 ]

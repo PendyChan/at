@@ -43,6 +43,38 @@ export default function Careers() {
         </div>
       </div>
 
+      {/* Who We're Looking For */}
+      <section className="py-12 relative overflow-hidden">
+        <img
+          src="/images/game.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-white/70" />
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <p className="text-brand-blue font-semibold text-sm uppercase tracking-widest mb-2">{t('careers.looking_label')}</p>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">{t('careers.looking_title')}</h2>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4 mb-8">
+            {['trait1', 'trait2', 'trait3', 'trait4'].map((key) => (
+              <div
+                key={key}
+                className="flex items-center gap-4 bg-white/80 backdrop-blur-sm rounded-xl px-6 py-5 border border-white/40"
+              >
+                <span className="shrink-0 w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <span className="text-gray-800 font-medium">{t(`careers.${key}`)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Job Listings */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 const missionImages = [
   '/images/meeting2.jpg',
   '/images/office2.jpg',
-  '/images/member1.jpg',
-  '/images/member2.jpg',
+  '/images/meeting.jpg',
+  '/images/meeting3.jpg',
 ]
 
 export default function About() {
@@ -53,14 +53,14 @@ export default function About() {
   return (
     <div className="pt-16">
       {/* Hero Banner */}
-      <div className="relative h-72 sm:h-96 overflow-hidden">
+      <div className="relative h-96 sm:h-[32rem] overflow-hidden">
         <img
-          src="/images/group.jpg"
+          src="/images/bbq.jpg"
           alt="About"
           className="w-full h-full object-cover"
-          style={{ objectPosition: 'center 25%' }}
+          style={{ objectPosition: 'center center' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/90 to-brand-blue/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/60 to-brand-blue/20" />
         <div className="absolute inset-0 flex items-end pb-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <p className="text-blue-300 font-semibold text-sm uppercase tracking-widest mb-2">About</p>
@@ -120,16 +120,6 @@ export default function About() {
                 />
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Photo */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">AscentisTech Team</h2>
-          <div className="rounded-2xl overflow-hidden shadow-xl">
-            <img src="/images/bbq.jpg" alt="Team" className="w-full object-cover max-h-100" />
           </div>
         </div>
       </section>
