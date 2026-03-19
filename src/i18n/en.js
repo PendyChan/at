@@ -112,7 +112,7 @@ const en = {
     cat7_i4: 'Language Program',
   },
   careers: {
-    title: 'Careers',
+    title: 'Talent Acquisition',
     subtitle: 'Join AscentisTech and build the future with us.',
     location: 'Neihu Dist., Taipei',
     apply: 'View Job',
