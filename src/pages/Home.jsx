@@ -118,9 +118,6 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-brand-blue font-semibold text-sm uppercase tracking-widest mb-2">
-                {t('nav.about')}
-              </p>
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 {t('about.title')}
               </h2>
@@ -154,9 +151,6 @@ export default function Home() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-brand-blue font-semibold text-sm uppercase tracking-widest mb-2">
-              {t('nav.services')}
-            </p>
             <h2 className="text-3xl font-bold text-gray-900 mb-3">
               {t('services.title')}
             </h2>
@@ -194,9 +188,6 @@ export default function Home() {
       <section className="py-20 bg-brand-blue">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <p className="text-blue-300 font-semibold text-sm uppercase tracking-widest mb-2">
-              {t('nav.awards')}
-            </p>
             <h2 className="text-3xl font-bold text-white mb-3">{t('awards.title')}</h2>
             <p className="text-blue-200 max-w-xl mx-auto">{t('awards.subtitle')}</p>
           </div>
@@ -234,9 +225,6 @@ export default function Home() {
               <img src="/images/yearlyParty.jpg" alt="Party" className="rounded-xl object-cover h-40 w-full" />
             </div>
             <div>
-              <p className="text-brand-blue font-semibold text-sm uppercase tracking-widest mb-2">
-                {t('nav.benefits')}
-              </p>
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
                 {t('benefits.title')}
               </h2>
