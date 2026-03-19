@@ -53,7 +53,7 @@ export default function About() {
   return (
     <div className="pt-16">
       {/* Hero Banner */}
-      <div className="relative h-96 sm:h-[32rem] overflow-hidden">
+      <div className="relative h-96 sm:h-[40rem] overflow-hidden">
         <img
           src="/images/bbq.jpg"
           alt="About"
