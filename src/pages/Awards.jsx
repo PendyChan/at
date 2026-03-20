@@ -1,6 +1,156 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import PageBanner from '../components/PageBanner'
 
+// ─── Arc Lines Background ─────────────────────────────────────────────────────
+function ArcLines() {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const section = canvas?.parentElement
+    if (!canvas || !section) return
+
+    const ctx = canvas.getContext('2d')
+    let W = (canvas.width = section.offsetWidth)
+    let H = (canvas.height = section.offsetHeight)
+
+    // Mirror Section 1 density/speed — same periods and ring count
+    const emitters = [
+      { xr: 0.0,  yr: 0.0,  period: 4.0, span: Math.PI * 0.55, rot0: 0.2 },
+      { xr: 1.0,  yr: 1.0,  period: 5.0, span: Math.PI * 0.7,  rot0: Math.PI },
+      { xr: 0.5,  yr: 0.0,  period: 3.5, span: Math.PI * 0.5,  rot0: Math.PI * 0.6 },
+      { xr: 0.0,  yr: 1.0,  period: 4.6, span: Math.PI * 0.65, rot0: Math.PI * 1.4 },
+      { xr: 1.0,  yr: 0.0,  period: 5.2, span: Math.PI * 0.45, rot0: Math.PI * 0.3 },
+      { xr: 0.5,  yr: 0.5,  period: 6.0, span: Math.PI * 0.9,  rot0: Math.PI * 0.8 },
+    ]
+
+    let t = 0
+    let rafId
+
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H)
+      t += 0.006
+
+      emitters.forEach(({ xr, yr, period, span, rot0 }) => {
+        const cx = xr * W
+        const cy = yr * H
+        const maxR = Math.hypot(W, H) * 0.55
+
+        // 3 arcs per emitter, evenly phased — same as Section 1
+        for (let k = 0; k < 3; k++) {
+          const phase = ((t / period + k / 3) % 1)
+          const r = phase * maxR
+          const alpha = Math.sin(phase * Math.PI) * 0.35
+          const rotation = rot0 + t * 0.25 + k * Math.PI * 0.7
+
+          ctx.beginPath()
+          ctx.arc(cx, cy, r, rotation, rotation + span)
+          ctx.strokeStyle = `rgba(96,165,250,${alpha})`
+          ctx.lineWidth = 1.5
+          ctx.stroke()
+        }
+      })
+
+      rafId = requestAnimationFrame(draw)
+    }
+    rafId = requestAnimationFrame(draw)
+
+    const onResize = () => {
+      W = canvas.width = section.offsetWidth
+      H = canvas.height = section.offsetHeight
+    }
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className="absolute inset-0 w-full h-full pointer-events-none"
+    />
+  )
+}
+
+// ─── Pulse Rings Background ───────────────────────────────────────────────────
+function PulseRings() {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const section = canvas?.parentElement
+    if (!canvas || !section) return
+
+    const ctx = canvas.getContext('2d')
+    let W = (canvas.width = section.offsetWidth)
+    let H = (canvas.height = section.offsetHeight)
+
+    // Emitters — mix of corners, edges, and near-center
+    const emitters = [
+      { xr: 0.0,  yr: 0.0,  period: 4.0 },
+      { xr: 1.0,  yr: 1.0,  period: 5.0 },
+      { xr: 0.5,  yr: 0.0,  period: 3.5 },
+      { xr: 0.0,  yr: 1.0,  period: 4.6 },
+      { xr: 1.0,  yr: 0.0,  period: 5.2 },
+      { xr: 0.5,  yr: 0.5,  period: 6.0 },
+    ]
+
+    let t = 0
+    let rafId
+
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H)
+      t += 0.006
+
+      emitters.forEach(({ xr, yr, period }) => {
+        const cx = xr * W
+        const cy = yr * H
+        const maxR = Math.hypot(W, H) * 0.55
+
+        for (let k = 0; k < 3; k++) {
+          const phase = ((t / period + k / 3) % 1)
+          const r = phase * maxR
+          const alpha = Math.sin(phase * Math.PI) * 0.18
+
+          ctx.beginPath()
+          ctx.arc(cx, cy, r, 0, Math.PI * 2)
+          ctx.strokeStyle = `rgba(7,50,144,${alpha})`
+          ctx.lineWidth = 1.5
+          ctx.stroke()
+        }
+      })
+
+      rafId = requestAnimationFrame(draw)
+    }
+    rafId = requestAnimationFrame(draw)
+
+    const onResize = () => {
+      W = canvas.width = section.offsetWidth
+      H = canvas.height = section.offsetHeight
+    }
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className="absolute inset-0 w-full h-full pointer-events-none"
+    />
+  )
+}
+
+// ─── Award Data ───────────────────────────────────────────────────────────────
 const agileItems = [
   { key: 'item1', photo: '/images/agileOrg.jpg' },
   { key: 'item2', photo: '/images/agileTeam.jpg' },
@@ -21,22 +171,12 @@ export default function Awards() {
 
   return (
     <div className="pt-16">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-brand-blue to-brand-blue-dark py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-blue-300 font-semibold text-sm uppercase tracking-widest mb-2">
-            Awards
-          </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
-            {t('awards.title')}
-          </h1>
-          <p className="text-blue-200 max-w-2xl mx-auto text-lg">{t('awards.subtitle')}</p>
-        </div>
-      </div>
+      <PageBanner label="Awards" title={t('awards.title')} subtitle={t('awards.subtitle')} />
 
       {/* Section 1 — 台灣敏捷大賞 */}
-      <section className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-slate-80 relative overflow-hidden">
+        <PulseRings />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="flex items-center gap-4 mb-12">
             <div className="flex-1 h-px bg-gray-200" />
@@ -91,20 +231,24 @@ export default function Awards() {
       </section>
 
       {/* Section 2 — 對話影響力 */}
-      <section className="py-20 bg-blue-50">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section
+        className="py-20 relative overflow-hidden"
+        style={{ background: 'linear-gradient(160deg, #041640 0%, #051f5c 50%, #071830 100%)' }}
+      >
+        <ArcLines />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="flex items-center gap-4 mb-12">
-            <div className="flex-1 h-px bg-blue-200" />
+            <div className="flex-1 h-px bg-blue-400/25" />
             <div className="text-center">
-              <span className="text-xs font-semibold text-blue-600 uppercase tracking-widest">
+              <span className="text-xs font-semibold text-blue-300 uppercase tracking-widest">
                 {t('awards.dialogue_year')}
               </span>
-              <h2 className="text-2xl font-extrabold text-gray-900 mt-0.5">
+              <h2 className="text-2xl font-extrabold text-white mt-0.5">
                 {t('awards.dialogue_section')}
               </h2>
             </div>
-            <div className="flex-1 h-px bg-blue-200" />
+            <div className="flex-1 h-px bg-blue-400/25" />
           </div>
 
           {/* Single Gold Award with Photo */}

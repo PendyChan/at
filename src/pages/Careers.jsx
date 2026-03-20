@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import PageBanner from '../components/PageBanner'
 
 const jobs = [
   { key: 'j1',  tag: 'Frontend',    url: 'https://www.104.com.tw/job/8sewq' },
@@ -28,20 +29,7 @@ export default function Careers() {
   return (
     <div className="pt-16">
 
-      {/* Header */}
-      <div className="bg-gradient-to-br from-brand-blue to-brand-blue-dark py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-blue-300 font-semibold text-sm uppercase tracking-widest mb-2">
-            Careers
-          </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
-            {t('careers.title')}
-          </h1>
-          <p className="text-blue-200 max-w-2xl mx-auto text-lg">
-            {t('careers.subtitle')}
-          </p>
-        </div>
-      </div>
+      <PageBanner label="Careers" title={t('careers.title')} subtitle={t('careers.subtitle')} />
 
       {/* Who We're Looking For */}
       <section className="py-12 relative overflow-hidden">

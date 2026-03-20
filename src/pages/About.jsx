@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import PageBanner from '../components/PageBanner'
 
 const missionImages = [
   '/images/meeting2.jpg',
@@ -52,24 +53,7 @@ export default function About() {
 
   return (
     <div className="pt-16">
-      {/* Hero Banner */}
-      <div className="relative h-96 sm:h-[40rem] overflow-hidden">
-        <img
-          src="/images/bbq.jpg"
-          alt="About"
-          className="w-full h-full object-cover"
-          style={{ objectPosition: 'center center' }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/60 to-brand-blue/20" />
-        <div className="absolute inset-0 flex items-end pb-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <p className="text-blue-300 font-semibold text-sm uppercase tracking-widest mb-2">About</p>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-white leading-tight">
-              {t('about.title')}
-            </h1>
-          </div>
-        </div>
-      </div>
+      <PageBanner label="About" title={t('about.title')} />
 
       {/* Subtitle + Cards */}
       <section className="py-20 bg-white">

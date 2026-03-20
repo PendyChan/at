@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import PageBanner from '../components/PageBanner'
 
 export default function Contact() {
   const { t } = useTranslation()
@@ -36,18 +37,7 @@ export default function Contact() {
 
   return (
     <div className="pt-16">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-brand-blue to-brand-blue-dark py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-blue-300 font-semibold text-sm uppercase tracking-widest mb-2">
-            Contact
-          </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
-            {t('contact.title')}
-          </h1>
-          <p className="text-blue-200 max-w-2xl mx-auto text-lg">{t('contact.subtitle')}</p>
-        </div>
-      </div>
+      <PageBanner label="Contact" title={t('contact.title')} subtitle={t('contact.subtitle')} />
 
       {/* Info Cards */}
       <section className="py-16 bg-white">

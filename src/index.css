@@ -34,3 +34,30 @@ img {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-14px); }
 }
+
+@keyframes orb1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30%       { transform: translate(60px, -80px) scale(1.1); }
+  70%       { transform: translate(-50px, 50px) scale(0.92); }
+}
+@keyframes orb2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40%       { transform: translate(-80px, 60px) scale(1.12); }
+  80%       { transform: translate(60px, -40px) scale(0.95); }
+}
+@keyframes orb3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(70px, 70px) scale(1.08); }
+}
+
+.hero-orb-1 { animation: orb1 20s ease-in-out infinite; }
+.hero-orb-2 { animation: orb2 26s ease-in-out infinite; }
+.hero-orb-3 { animation: orb3 18s ease-in-out infinite; }
+
+@keyframes gridPull {
+  from { background-position: center 0px; }
+  to   { background-position: center 60px; }
+}
+.persp-grid-plane {
+  animation: gridPull 3s linear infinite;
+}

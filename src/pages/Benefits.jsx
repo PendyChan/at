@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import PageBanner from '../components/PageBanner'
 
 const categories = [
   { key: 'cat1', items: ['i1', 'i2', 'i3'] },
@@ -78,16 +79,8 @@ export default function Benefits() {
       </div>
 
       {/* Header */}
-      <div className="relative z-10 bg-gradient-to-br from-brand-blue to-brand-blue-dark py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-blue-300 font-semibold text-sm uppercase tracking-widest mb-2">
-            Benefits
-          </p>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4">
-            {t('benefits.title')}
-          </h1>
-          <p className="text-blue-200 max-w-2xl mx-auto text-lg">{t('benefits.subtitle')}</p>
-        </div>
+      <div className="relative z-10">
+        <PageBanner label="Benefits" title={t('benefits.title')} subtitle={t('benefits.subtitle')} />
       </div>
 
       {/* Benefits Grid */}
