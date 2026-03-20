@@ -176,6 +176,8 @@ export default function Services() {
         scrollTrigger: {
           trigger: '[data-s="grid"]',
           start: 'top 80%',
+          once: true,
+          invalidateOnRefresh: true,
         },
       })
 
@@ -189,8 +191,13 @@ export default function Services() {
         scrollTrigger: {
           trigger: '[data-s="grid"]',
           start: 'top 62%',
+          once: true,
+          invalidateOnRefresh: true,
         },
       })
+
+      // Refresh ScrollTrigger after all assets load (fixes production layout timing)
+      window.addEventListener('load', () => ScrollTrigger.refresh())
     }, pageRef)
     return () => ctx.revert()
   }, [])

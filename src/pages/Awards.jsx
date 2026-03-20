@@ -10,71 +10,59 @@ function ArcLines() {
     const canvas = canvasRef.current
     const section = canvas?.parentElement
     if (!canvas || !section) return
+    let animId, initId, onResize
 
-    const ctx = canvas.getContext('2d')
-    let W = (canvas.width = section.offsetWidth)
-    let H = (canvas.height = section.offsetHeight)
+    initId = requestAnimationFrame(() => {
+      const W0 = section.offsetWidth
+      const H0 = section.offsetHeight
+      if (!W0 || !H0) return
 
-    // Mirror Section 1 density/speed — same periods and ring count
-    const emitters = [
-      { xr: 0.0,  yr: 0.0,  period: 4.0, span: Math.PI * 0.55, rot0: 0.2 },
-      { xr: 1.0,  yr: 1.0,  period: 5.0, span: Math.PI * 0.7,  rot0: Math.PI },
-      { xr: 0.5,  yr: 0.0,  period: 3.5, span: Math.PI * 0.5,  rot0: Math.PI * 0.6 },
-      { xr: 0.0,  yr: 1.0,  period: 4.6, span: Math.PI * 0.65, rot0: Math.PI * 1.4 },
-      { xr: 1.0,  yr: 0.0,  period: 5.2, span: Math.PI * 0.45, rot0: Math.PI * 0.3 },
-      { xr: 0.5,  yr: 0.5,  period: 6.0, span: Math.PI * 0.9,  rot0: Math.PI * 0.8 },
-    ]
+      const ctx = canvas.getContext('2d')
+      let W = (canvas.width = W0)
+      let H = (canvas.height = H0)
 
-    let t = 0
-    let rafId
+      const emitters = [
+        { xr: 0.0, yr: 0.0, period: 4.0, span: Math.PI * 0.55, rot0: 0.2 },
+        { xr: 1.0, yr: 1.0, period: 5.0, span: Math.PI * 0.7,  rot0: Math.PI },
+        { xr: 0.5, yr: 0.0, period: 3.5, span: Math.PI * 0.5,  rot0: Math.PI * 0.6 },
+        { xr: 0.0, yr: 1.0, period: 4.6, span: Math.PI * 0.65, rot0: Math.PI * 1.4 },
+        { xr: 1.0, yr: 0.0, period: 5.2, span: Math.PI * 0.45, rot0: Math.PI * 0.3 },
+        { xr: 0.5, yr: 0.5, period: 6.0, span: Math.PI * 0.9,  rot0: Math.PI * 0.8 },
+      ]
+      let t = 0
 
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H)
-      t += 0.006
+      const draw = () => {
+        ctx.clearRect(0, 0, W, H)
+        t += 0.006
+        emitters.forEach(({ xr, yr, period, span, rot0 }) => {
+          const cx = xr * W, cy = yr * H
+          const maxR = Math.hypot(W, H) * 0.55
+          for (let k = 0; k < 3; k++) {
+            const phase = (t / period + k / 3) % 1
+            const rotation = rot0 + t * 0.25 + k * Math.PI * 0.7
+            ctx.beginPath()
+            ctx.arc(cx, cy, phase * maxR, rotation, rotation + span)
+            ctx.strokeStyle = `rgba(96,165,250,${Math.sin(phase * Math.PI) * 0.35})`
+            ctx.lineWidth = 1.5
+            ctx.stroke()
+          }
+        })
+        animId = requestAnimationFrame(draw)
+      }
+      animId = requestAnimationFrame(draw)
 
-      emitters.forEach(({ xr, yr, period, span, rot0 }) => {
-        const cx = xr * W
-        const cy = yr * H
-        const maxR = Math.hypot(W, H) * 0.55
-
-        // 3 arcs per emitter, evenly phased — same as Section 1
-        for (let k = 0; k < 3; k++) {
-          const phase = ((t / period + k / 3) % 1)
-          const r = phase * maxR
-          const alpha = Math.sin(phase * Math.PI) * 0.35
-          const rotation = rot0 + t * 0.25 + k * Math.PI * 0.7
-
-          ctx.beginPath()
-          ctx.arc(cx, cy, r, rotation, rotation + span)
-          ctx.strokeStyle = `rgba(96,165,250,${alpha})`
-          ctx.lineWidth = 1.5
-          ctx.stroke()
-        }
-      })
-
-      rafId = requestAnimationFrame(draw)
-    }
-    rafId = requestAnimationFrame(draw)
-
-    const onResize = () => {
-      W = canvas.width = section.offsetWidth
-      H = canvas.height = section.offsetHeight
-    }
-    window.addEventListener('resize', onResize)
+      onResize = () => { W = canvas.width = section.offsetWidth; H = canvas.height = section.offsetHeight }
+      window.addEventListener('resize', onResize)
+    })
 
     return () => {
-      cancelAnimationFrame(rafId)
-      window.removeEventListener('resize', onResize)
+      cancelAnimationFrame(initId)
+      cancelAnimationFrame(animId)
+      if (onResize) window.removeEventListener('resize', onResize)
     }
   }, [])
 
-  return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      className="absolute inset-0 w-full h-full pointer-events-none"
-    />
-  )
+  return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 w-full h-full pointer-events-none" />
 }
 
 // ─── Pulse Rings Background ───────────────────────────────────────────────────
@@ -85,69 +73,58 @@ function PulseRings() {
     const canvas = canvasRef.current
     const section = canvas?.parentElement
     if (!canvas || !section) return
+    let animId, initId, onResize
 
-    const ctx = canvas.getContext('2d')
-    let W = (canvas.width = section.offsetWidth)
-    let H = (canvas.height = section.offsetHeight)
+    initId = requestAnimationFrame(() => {
+      const W0 = section.offsetWidth
+      const H0 = section.offsetHeight
+      if (!W0 || !H0) return
 
-    // Emitters — mix of corners, edges, and near-center
-    const emitters = [
-      { xr: 0.0,  yr: 0.0,  period: 4.0 },
-      { xr: 1.0,  yr: 1.0,  period: 5.0 },
-      { xr: 0.5,  yr: 0.0,  period: 3.5 },
-      { xr: 0.0,  yr: 1.0,  period: 4.6 },
-      { xr: 1.0,  yr: 0.0,  period: 5.2 },
-      { xr: 0.5,  yr: 0.5,  period: 6.0 },
-    ]
+      const ctx = canvas.getContext('2d')
+      let W = (canvas.width = W0)
+      let H = (canvas.height = H0)
 
-    let t = 0
-    let rafId
+      const emitters = [
+        { xr: 0.0, yr: 0.0, period: 4.0 },
+        { xr: 1.0, yr: 1.0, period: 5.0 },
+        { xr: 0.5, yr: 0.0, period: 3.5 },
+        { xr: 0.0, yr: 1.0, period: 4.6 },
+        { xr: 1.0, yr: 0.0, period: 5.2 },
+        { xr: 0.5, yr: 0.5, period: 6.0 },
+      ]
+      let t = 0
 
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H)
-      t += 0.006
+      const draw = () => {
+        ctx.clearRect(0, 0, W, H)
+        t += 0.006
+        emitters.forEach(({ xr, yr, period }) => {
+          const cx = xr * W, cy = yr * H
+          const maxR = Math.hypot(W, H) * 0.55
+          for (let k = 0; k < 3; k++) {
+            const phase = (t / period + k / 3) % 1
+            ctx.beginPath()
+            ctx.arc(cx, cy, phase * maxR, 0, Math.PI * 2)
+            ctx.strokeStyle = `rgba(7,50,144,${Math.sin(phase * Math.PI) * 0.18})`
+            ctx.lineWidth = 1.5
+            ctx.stroke()
+          }
+        })
+        animId = requestAnimationFrame(draw)
+      }
+      animId = requestAnimationFrame(draw)
 
-      emitters.forEach(({ xr, yr, period }) => {
-        const cx = xr * W
-        const cy = yr * H
-        const maxR = Math.hypot(W, H) * 0.55
-
-        for (let k = 0; k < 3; k++) {
-          const phase = ((t / period + k / 3) % 1)
-          const r = phase * maxR
-          const alpha = Math.sin(phase * Math.PI) * 0.18
-
-          ctx.beginPath()
-          ctx.arc(cx, cy, r, 0, Math.PI * 2)
-          ctx.strokeStyle = `rgba(7,50,144,${alpha})`
-          ctx.lineWidth = 1.5
-          ctx.stroke()
-        }
-      })
-
-      rafId = requestAnimationFrame(draw)
-    }
-    rafId = requestAnimationFrame(draw)
-
-    const onResize = () => {
-      W = canvas.width = section.offsetWidth
-      H = canvas.height = section.offsetHeight
-    }
-    window.addEventListener('resize', onResize)
+      onResize = () => { W = canvas.width = section.offsetWidth; H = canvas.height = section.offsetHeight }
+      window.addEventListener('resize', onResize)
+    })
 
     return () => {
-      cancelAnimationFrame(rafId)
-      window.removeEventListener('resize', onResize)
+      cancelAnimationFrame(initId)
+      cancelAnimationFrame(animId)
+      if (onResize) window.removeEventListener('resize', onResize)
     }
   }, [])
 
-  return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      className="absolute inset-0 w-full h-full pointer-events-none"
-    />
-  )
+  return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 w-full h-full pointer-events-none" />
 }
 
 // ─── Award Data ───────────────────────────────────────────────────────────────
@@ -174,7 +151,7 @@ export default function Awards() {
       <PageBanner label="Awards" title={t('awards.title')} subtitle={t('awards.subtitle')} />
 
       {/* Section 1 — 台灣敏捷大賞 */}
-      <section className="py-20 bg-slate-80 relative overflow-hidden">
+      <section className="py-20 bg-slate-50 relative overflow-hidden">
         <PulseRings />
         <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
